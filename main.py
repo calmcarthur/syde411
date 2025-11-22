@@ -225,7 +225,7 @@ class MicrogridOptimizer:
                 row = "{:<5} | {:<5.0f} | {:<5.0f} | {:<5.0f} | {:<5.0f} | {:<5.0f} | {:<5.0f} | {:<5.0f}"
                 print(row.format(
                     t,
-                    self.model.L[t].value,
+                    pyo.value(self.model.L[t]),
                     pyo.value(self.model.g[t]),
                     pyo.value(self.model.s[t]),
                     pyo.value(self.model.b_ch[t]),
