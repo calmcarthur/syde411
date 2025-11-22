@@ -214,14 +214,14 @@ class MicrogridOptimizer:
             print(f"🌟 Optimal Total Operational Cost: \${pyo.value(self.model.C):.2f}")
             print("="*50 + "\n")
             
-            # Print decision variables for a few hours as an example
-            print("Hourly Scheduling Results (Example for hours 11, 12, 17, 18):")
+            # Print decision variables
+            print("Hourly Scheduling Results:")
             print("-" * 75)
             header = "{:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5} | {:<5}"
             print(header.format("Hr", "Load", "Grid", "Solar", "BatCh", "BatDis", "SoC", "GenOn"))
             print("-" * 75)
             
-            for t in [11, 12, 17, 18]:
+            for t in range(1, 25):
                 row = "{:<5} | {:<5.0f} | {:<5.0f} | {:<5.0f} | {:<5.0f} | {:<5.0f} | {:<5.0f} | {:<5.0f}"
                 print(row.format(
                     t,
