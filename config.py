@@ -11,6 +11,7 @@ FIXED_CONSTANTS = {
     "Degradation Cost": 0.025,  # $/kWh
     "Generator Capacity": 100,  # kW
     "Generator Rate": 0.32,  # $/kWh
+    "Generator Startup Cost": 1,  # $
 }
 
 # Default solver preference order
