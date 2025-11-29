@@ -1,3 +1,6 @@
 pip==25.2
 ply==3.11
 pyomo==6.9.5
+numpy==1.26.4
+highspy==1.5.3
+matplotlib==3.8.2
