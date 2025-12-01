@@ -20,7 +20,7 @@ FIXED_CONSTANTS = {
     # Generator Parameters
     "Generator Capacity": 118.0,         # kW (C_gen)
     "Generator Rate": 0.32,              # $/kWh fuel cost (G_rate)
-    "Generator Startup Cost": 300.0,     # $ per start (C_start)
+    "Generator Startup Cost": 10.0,      # $ per start (C_start)
     "Generator Ramp Limit": 8.0,         # kW/hr (Ramp_limit)
     "Generator Min Up Time": 6.0,        # hours (MinUp_hours)
 
