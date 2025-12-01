@@ -25,7 +25,7 @@ satisfying demand and physical constraints.
 Install the required Python packages using pip:
 
 ``` bash
-pip install pyomo matplotlib numpy highspy
+pip install requirements.txt
 ```
 
 Note: `highspy` installs the HiGHS solver libraries directly into your
