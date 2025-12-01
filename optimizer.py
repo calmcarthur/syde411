@@ -9,14 +9,11 @@ import os
 import sys
 from collections.abc import Sequence
 from io import StringIO
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-import matplotlib.patches as mpatches
 import numpy as np
 import pyomo.environ as pyo
-from pyomo.opt import SolverStatus, TerminationCondition
 
 try:
     import pyomo.contrib.appsi.solvers.highs  # noqa: F401
@@ -187,13 +184,8 @@ class MicrogridOptimizer:
         file_prefix = f"{prefix}_" if prefix else ""
         plt.style.use('seaborn-v0_8-darkgrid')
 
-        # 1. Summary Dashboard (Replicated from Notebook Graph 9)
         self._plot_summary_dashboard(data, output_dir, file_prefix)
-
-        # 2. Hourly Cost Breakdown (Replicated from Notebook Graph 6)
         self._plot_hourly_costs_breakdown(data, output_dir, file_prefix)
-
-        # 3. Standard Energy Dispatch
         self._plot_energy_dispatch(data, output_dir, file_prefix)
         
         print(f"Graphs saved to {output_dir}/")
@@ -207,7 +199,6 @@ class MicrogridOptimizer:
         fig = plt.figure(figsize=(16, 10))
         gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
         
-        # Row 1: Inputs
         ax1 = fig.add_subplot(gs[0, 0])
         ax1.plot(hours, data['load'], 'o-', color='#2E86AB', linewidth=2)
         ax1.set_title('Load Profile', fontweight='bold'); ax1.set_ylabel('kW')
@@ -220,7 +211,6 @@ class MicrogridOptimizer:
         ax3.plot(hours, data['grid_price'], 'o-', color='#C73E1D', linewidth=2)
         ax3.set_title('Grid Price', fontweight='bold'); ax3.set_ylabel('$/kWh')
 
-        # Row 2: System State
         ax4 = fig.add_subplot(gs[1, 0])
         ax4.plot(hours, data['soc'], 'o-', color='#2E86AB', linewidth=2.5)
         ax4.axhline(pyo.value(m.B_max), color='r', linestyle='--')
@@ -237,7 +227,6 @@ class MicrogridOptimizer:
         ax6.bar(['Grid', 'Gen', 'Start', 'Bat'], totals, color=['#C73E1D', '#BC4749', '#D62828', '#2E86AB'])
         ax6.set_title('Total Cost Breakdown', fontweight='bold')
 
-        # Row 3: Dispatch Stack
         ax7 = fig.add_subplot(gs[2, :])
         l1 = np.array(data['solar_used'])
         l2 = l1 + np.array(data['bat_dis'])
@@ -282,9 +271,7 @@ class MicrogridOptimizer:
         plt.close()
 
     def _plot_energy_dispatch(self, data, output_dir, prefix):
-        # Simplified dispatch plot for reference
         fig, ax = plt.subplots(figsize=(10, 6))
-        # (Reuse logic if needed, or keep simple)
         plt.close()
 
     @staticmethod
@@ -302,7 +289,6 @@ class MicrogridOptimizer:
         
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10), sharex=True, sharey=True)
         
-        # Helper to plot on axes
         def plot_on_ax(ax, d, name):
             ax.bar(hours, d['cost_grid'], label='Grid', color='#C73E1D')
             b1 = np.array(d['cost_grid'])
@@ -319,7 +305,6 @@ class MicrogridOptimizer:
         plot_on_ax(ax2, d2, s2)
         ax2.set_xlabel('Hour')
         
-        # Unified legend
         handles, labels = ax1.get_legend_handles_labels()
         fig.legend(handles, labels, loc='upper center', ncol=4, bbox_to_anchor=(0.5, 1.02))
         
@@ -328,7 +313,7 @@ class MicrogridOptimizer:
         plt.close()
 
     # ------------------------------------------------------------------
-    # Solving & Utils
+    # Utils
     # ------------------------------------------------------------------
     def solve_model(self, solver="cbc", fallback=None, tee=False, log_output_dir="results"):
         solver_to_use = self._resolve_solver(solver, fallback)

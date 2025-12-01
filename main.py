@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 import argparse
-import os
 from copy import deepcopy
 
 from config import FIXED_CONSTANTS
@@ -34,7 +33,6 @@ def run_optimization(solvers, overrides=None, tee=False, plot=True):
                 res.solver.termination_condition in {TerminationCondition.optimal, TerminationCondition.feasible}):
                 
                 opt.summarize_schedule()
-                # Store full data payload for comparison
                 results_map[name] = {'data': opt._extract_data()}
                 
                 if plot:

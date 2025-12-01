@@ -5,7 +5,6 @@ DEFAULT_SOLVER = "cbc"  # Open-source MILP solver
 FALLBACK_SOLVER = ["glpk", "highs"]  # Solvers to try if CBC isn't found
 
 # Physical and Economic Constants
-# These values match the hardcoded parameters in 'edited_optimizer.py'
 FIXED_CONSTANTS = {
     # Battery Storage Parameters
     "Max Battery Capacity": 500.0,       # kWh (B_max)
@@ -20,7 +19,7 @@ FIXED_CONSTANTS = {
     # Generator Parameters
     "Generator Capacity": 118.0,         # kW (C_gen)
     "Generator Rate": 0.32,              # $/kWh fuel cost (G_rate)
-    "Generator Startup Cost": 20.0,     # $ per start (C_start)
+    "Generator Startup Cost": 20.0,      # $ per start (C_start)
     "Generator Ramp Limit": 8.0,         # kW/hr (Ramp_limit)
     "Generator Min Up Time": 6.0,        # hours (MinUp_hours)
 
